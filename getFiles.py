@@ -8,10 +8,11 @@ import gzip
 import shutil
 
 # import regex
+configPath = r'C:\Projects\redoak_file_insight\config.ini'
 
 def getRedOakfiles(configPath):
 
-    configPath = r'C:\Projects\redoak_file_insight\config.ini'
+    
     ini_parser = ConfigParser()
     ini_parser.read(configPath)
     BrandPurchase_regex = '.*BRAND_PURCHASE_.*.gz$'
@@ -71,4 +72,16 @@ def getRedOakfiles(configPath):
 
 
 def main():
-    print('Getting list of all files..')
+    if __name__=='__main__':
+        print('Getting list of all files..')
+        getRedOakfiles(configPath)
+        print('Data written to log files')
+
+
+main()
+
+
+
+
+
+        
