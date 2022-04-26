@@ -55,7 +55,7 @@ with pd.ExcelWriter(outputPath+'/Purchase_log.xlsx', mode='w') as writer:
 df_fileGenericNonSource = pd.read_csv(fileGenericNonSource, compression='gzip', header=0, sep='\t')
 df_fileGenericNonSourceMod = df_fileGenericNonSource[['Purchase_Date','PurchaseUID']].copy()
 df_fileGenericNonSourceMod['Purchase_Date'] = pd.to_datetime(df_fileGenericNonSourceMod['Purchase_Date'], errors='coerce')
-df_fileGenericNonSource_count_rows = df_fileGenericNonSource.groupby('RecordType').size().reset_index(name='counts')
+df_fileGenericNonSource_count_rows = df_fileGenericNonSource.groupby('Record_Type').size().reset_index(name='counts')
 df_fileGenericNonSourceModAgg= df_fileGenericNonSourceMod.groupby(df_fileGenericNonSourceMod['Purchase_Date'].dt.date)['PurchaseUID'].agg(['count']).reset_index().rename(columns={'Purchase_Date':'GenericNonSourceFile_Date', 'count': 'CountofPGenericNonSource'})
 
 with pd.ExcelWriter(outputPath+'/GenericNonSource_log.xlsx', mode='w') as writer:
@@ -65,10 +65,10 @@ with pd.ExcelWriter(outputPath+'/GenericNonSource_log.xlsx', mode='w') as writer
 df_fileGenericSource = pd.read_csv(fileGenericSource, compression='gzip', header=0, sep='\t')
 df_fileGenericSourceMod = df_fileGenericSource[['PurchaseDate','PurchaseUID']].copy()
 df_fileGenericSourceMod['PurchaseDate'] = pd.to_datetime(df_fileGenericSourceMod['PurchaseDate'], errors='coerce')
-df_fileGenericSource_count_rows = df_fileGenericNonSource.groupby('RecordType').size().reset_index(name='counts')
+df_fileGenericSource_count_rows = df_fileGenericNonSource.groupby('Record_Type').size().reset_index(name='counts')
 df_fileGenericSourceModAgg= df_fileGenericSourceMod.groupby(df_fileGenericSourceMod['PurchaseDate'].dt.date)['PurchaseUID'].agg(['count']).reset_index().rename(columns={'PurchaseDate':'GenericSourceFile_Date', 'count': 'CountofGenericSource'})
 
-with pd.ExcelWriter(outputPath+'/GenericNonSource_log.xlsx', mode='w') as writer:
+with pd.ExcelWriter(outputPath+'/GenericSource_log.xlsx', mode='w') as writer:
     df_fileGenericSource_count_rows.to_excel(writer, sheet_name='TotalCount', index=False)
     df_fileGenericSourceModAgg.to_excel(writer, sheet_name='DateCount', index=False)
 
