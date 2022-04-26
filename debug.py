@@ -76,10 +76,4 @@ with pd.ExcelWriter(outputPath+'/GenericSource_log.xlsx', mode='w') as writer:
 # print(df_fileBrandPurchaseModAgg)
 # print(df_fileGenericNonSourceModAgg)
 # print(df_fileGenericSourceModAgg)
-# print(df_filePurchaseModAgg)
-
-
-
-
-
-        
+# print(df_filePurchaseModAgg)        
