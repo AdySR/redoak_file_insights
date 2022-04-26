@@ -42,7 +42,9 @@ def getRedOakfiles(configPath):
     df_fileBrandPurchase = pd.read_csv(fileBrandPurchase, compression='gzip', header=0, sep='\t')
     df_fileBrandPurchaseMod = df_fileBrandPurchase[['PurchaseDate','PurchaseNumber']].copy()
     df_fileBrandPurchaseMod['PurchaseDate'] = pd.to_datetime(df_fileBrandPurchaseMod['PurchaseDate'], errors='coerce')
+    
     df_fileBrandPurchaseModAgg= df_fileBrandPurchaseMod.groupby(df_fileBrandPurchaseMod['PurchaseDate'].dt.date)['PurchaseNumber'].agg(['count']).reset_index().rename(columns={'PurchaseDate':'Brand_PurchaseFile_Date', 'count': 'CountofBrand_PurchaseNumbers'})
+    
     df_fileBrandPurchaseModAgg.to_csv(outputPath+'/Brand_Purchase_log.txt',sep='\t')
 
     df_filePurchase = pd.read_csv(filePurchase, compression='gzip', header=0, sep='\t')
